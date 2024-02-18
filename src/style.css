@@ -1,0 +1,195 @@
+:root {
+  --clr-primaryBlue: #2e83d7;
+  --clr-secondary: #e6e6ea;
+  --clr-white: #ffffff;
+}
+p {
+  font-weight: 500;
+}
+select {
+  border: 1px solid rgb(237, 233, 233);
+  border-radius: 10px;
+  padding: 0.7em;
+  margin-top: 0.5em;
+}
+.btn {
+  padding: 0.5em 1.5em;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--clr-white);
+  background-color: var(--clr-primaryBlue);
+  border: none;
+  border-radius: 0.5em;
+}
+
+.container {
+  margin: 0.5em 2em;
+  padding: 2em;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.search-container {
+  display: flex;
+  flex-direction: column;
+  padding: 1em 2em;
+  background-color: white;
+  margin: 2em 0;
+  border-radius: 15px;
+  box-shadow: 0px 0px 43px 15px rgba(0, 0, 0, 0.1);
+}
+.search {
+  width: 100%;
+  border: none;
+  background-color: rgb(246, 246, 246);
+  border-radius: 0.5em;
+  padding: 0.7em;
+  margin-top: 0.5em;
+}
+
+.category-select select {
+  width: 100%;
+}
+.btn-status select {
+  width: 100%;
+}
+.arrow {
+  display: none;
+}
+.btn-status .btn {
+  width: 40%;
+  margin-left: 1.5em;
+}
+
+
+/*Product Table*/
+.custom-header {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.2em;
+  gap:10px;
+}
+
+.header-dropdown{
+  display: flex;
+  flex-wrap: wrap;
+  gap:1.5em;
+}
+ .column-dropdown{
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 0.5em;
+  
+ }
+ .column-dropdown p {
+  display: none;
+ }
+ 
+ .column-dropdown select{
+  padding: 0.5em 2em;
+ }
+
+/* xs */
+/* @media (min-width: 475px) {} */
+
+/* sm */
+/* @media (min-width: 640px) {} */
+
+/* md */
+/* @media (min-width: 768px) {} */
+
+/* lg */
+@media (min-width: 1024px) {
+  /*search page*/
+  .btn {
+    padding: 1em 2.5em;
+  }
+  .search-container {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+  }
+  .search-group {
+    width: 40%;
+  }
+
+  .category-container {
+    width: 60%;
+    display: flex;
+    gap: 20px;
+  }
+
+  .category-select {
+    width: 30%;
+  }
+
+  .status-select {
+    width: 70%;
+  }
+
+  .btn-status {
+    display: flex;
+    gap: 20px;
+  }
+
+  .btn-status select {
+    width: 40%;
+  }
+
+  .arrow {
+    display: block;
+    padding: 0.3em 0.7em;
+    border: none;
+    border-radius: 1em;
+  }
+
+  /*Product summary table*/
+  .custom-header {
+    /* display: flex; */
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.2em;
+  }
+
+  .table-header {
+    flex: 1;
+  }
+
+  .header-dropdown {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .header-dropdown p {
+    display: block;
+    margin-top: 0.6em;
+    margin-right: 0.5em;
+    
+  }
+
+  /* Make the select element wider */
+  .header-dropdown select {
+    width: 200px; /* Adjust width as needed */
+    font-weight: 600;
+  }
+  .column-dropdown {
+    display: flex;
+  }
+
+  .Products-table {
+    border-radius: 10px;
+    padding: 1rem 1.5rem;
+    box-shadow: 0px 0px 43px 15px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* xl */
+/* @media (min-width: 1280px) {} */
+
+/* 2xl */
+/* @media (min-width: 1536px) {} */
