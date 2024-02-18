@@ -41,8 +41,15 @@ const CommonModal = ({ open, onClose, rowData }) => {
   };
 
   return (
-    <Modal open={open} onClose={onClose} style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-      <div style={{ backgroundColor: "#fff", padding: 20, borderRadius: 4, minWidth: 300 }}>
+    <Modal open={open} onClose={onClose} 
+    style={{
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      width: "70%", 
+      maxWidth: 400, 
+    }}>
+      <div style={{ backgroundColor: "#fff", padding: 30, borderRadius: 4, minWidth: 200 }}>
         <h2>{isNewRow ? "Create New Order" : "Edit Order"}</h2>
         <TextField name="date" label="Date" type="date" value={formData.date} onChange={handleChange} fullWidth margin="normal" focused/>
         <TextField name="status" label="Status" select value={formData.status} onChange={handleChange} fullWidth margin="normal">

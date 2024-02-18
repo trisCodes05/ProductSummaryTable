@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { Pagination } from "@mui/material";
+import {
+  Checkbox,
+  FormControl,
+  MenuItem,
+  Pagination,
+  Select,
+} from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import CommonModal from "../orderModal/commonModal";
 
@@ -17,7 +23,19 @@ const columns = [
   { field: "orderType", headerName: "Order Type", width: 120 },
 ];
 
-const CustomHeader = ({ columns, onChangePage, pageCount }) => {
+const CustomHeader = ({
+  columns,
+  onChangePage,
+  pageCount,
+  columnSelected,
+  setColumnSelected,
+}) => {
+  const handleColumnSelect = (event) => {
+    const { value } = event.target;
+
+    setColumnSelected(value);
+  };
+
   return (
     <div className="custom-header">
       <div className="table-header">
@@ -27,14 +45,26 @@ const CustomHeader = ({ columns, onChangePage, pageCount }) => {
       <div className="header-dropdown">
         <div className="column-dropdown">
           <p>Show</p>
-          <select>
-            <option value="">All Column</option>
-            {columns.map((column) => (
-              <option key={column.field} value={column.field}>
-                {column.headerName}
-              </option>
-            ))}
-          </select>
+          <FormControl sx={{ m: 1, minWidth: 120 }}>
+            <Select
+              multiple
+              value={columnSelected}
+              onChange={handleColumnSelect}
+              renderValue={(selected) =>
+                selected.includes("All Columns")
+                  ? "All Columns"
+                  : selected.join(", ")
+              }
+              sx={{ width: 200 }}
+            >
+              {columns.map((column) => (
+                <MenuItem key={column.field} value={column.field}>
+                  <Checkbox checked={columnSelected.includes(column.field)} />
+                  {column.headerName}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
         </div>
         <button className="btn">DISPATCH SELECTED</button>
         <Pagination
@@ -49,6 +79,10 @@ const CustomHeader = ({ columns, onChangePage, pageCount }) => {
 };
 
 const OrderTable = ({ rows, onEdit }) => {
+  const [selectedColumns, setSelectedColumns] = useState([
+    "All Columns",
+    ...columns.map((column) => column.field),
+  ]);
   const [page, setPage] = useState(1);
   const pageSize = 9;
   const totalPageCount = Math.ceil(rows.length / pageSize);
@@ -67,7 +101,7 @@ const OrderTable = ({ rows, onEdit }) => {
   const handleEditClick = (params) => {
     // Set the selected row
     setSelectedRow(params.row);
-    
+
     // Open the modal
     setIsModalOpen(true);
 
@@ -80,7 +114,7 @@ const OrderTable = ({ rows, onEdit }) => {
   const handleCloseModal = () => {
     // Close the modal
     setIsModalOpen(false);
-    
+
     // Reset the selected row
     setSelectedRow(null);
   };
@@ -91,11 +125,13 @@ const OrderTable = ({ rows, onEdit }) => {
         columns={columns}
         onChangePage={handleChangePage}
         pageCount={totalPageCount}
+        columnSelected={selectedColumns}
+        setColumnSelected={setSelectedColumns}
       />
       <DataGrid
         rows={visibleRows}
         columns={[
-          ...columns,
+          ...columns.filter((column) => selectedColumns.includes(column.field)),
           {
             field: "edit",
             headerName: "",
@@ -117,7 +153,11 @@ const OrderTable = ({ rows, onEdit }) => {
         hideFooter
         editable
       />
-      <CommonModal open={isModalOpen} onClose={handleCloseModal} rowData={selectedRow} />
+      <CommonModal
+        open={isModalOpen}
+        onClose={handleCloseModal}
+        rowData={selectedRow}
+      />
     </div>
   );
 };
