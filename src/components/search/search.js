@@ -3,6 +3,7 @@ import { SearchContext } from "../../context/searchContext";
 import arrow from '../../assets/imgs/down-arrow.png';
 
 function TableSearch({ onSearch }) {
+  //recieve the data from context
   const {
     searchWord,
     setSearchWord,
@@ -13,6 +14,7 @@ function TableSearch({ onSearch }) {
   } = useContext(SearchContext);
 
   const handleSearch = () => {
+    //passing the data to table
     onSearch(searchWord, category, status);
   };
 
@@ -23,7 +25,7 @@ function TableSearch({ onSearch }) {
         <input
           className="search"
           type="text"
-          placeholder="search"
+          placeholder="search category ,name company, etc..."
           value={searchWord}
           onChange={(e) => setSearchWord(e.target.value)}
         />
@@ -48,8 +50,9 @@ function TableSearch({ onSearch }) {
             value={status} onChange={(e) => setStatus(e.target.value)}>
               <option value="All">All</option>
               <option value="Pending">Pending</option>
-              <option value="Delivered">Delivered</option>
+              <option value="Processing">Processing</option>
               <option value="Shipped">Shipped</option>
+              <option value="Delivered">Delivered</option>
             </select>
             <button className="arrow"><img src={arrow} alt="arrow" /></button>
             <button className="btn" onClick={handleSearch}>SEARCH</button>

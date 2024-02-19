@@ -30,9 +30,9 @@ const CustomHeader = ({
   columnSelected,
   setColumnSelected,
 }) => {
+  
   const handleColumnSelect = (event) => {
     const { value } = event.target;
-
     setColumnSelected(value);
   };
 
@@ -82,7 +82,9 @@ const OrderTable = ({ rows, onEdit }) => {
   const [selectedColumns, setSelectedColumns] = useState([
     "All Columns",
     ...columns.map((column) => column.field),
-  ]);
+  ]); //adding all options to selectedColumns
+
+  //Pagination
   const [page, setPage] = useState(1);
   const pageSize = 9;
   const totalPageCount = Math.ceil(rows.length / pageSize);
@@ -95,28 +97,23 @@ const OrderTable = ({ rows, onEdit }) => {
   const endIndex = startIndex + pageSize;
   const visibleRows = rows.slice(startIndex, endIndex);
 
+  //Edit Row
   const [selectedRow, setSelectedRow] = useState(null); // State for selected row
   const [isModalOpen, setIsModalOpen] = useState(false); // State for modal
 
   const handleEditClick = (params) => {
-    // Set the selected row
-    setSelectedRow(params.row);
-
-    // Open the modal
+    setSelectedRow(params.row); // Set the selected row
     setIsModalOpen(true);
 
-    // Call the onEdit function if provided
+    // Call the onEdit function if provided/ if OrderTable component
     if (onEdit) {
       onEdit(params.row);
     }
   };
 
   const handleCloseModal = () => {
-    // Close the modal
     setIsModalOpen(false);
-
-    // Reset the selected row
-    setSelectedRow(null);
+    setSelectedRow(null); // Reset the selected row
   };
 
   return (
@@ -128,6 +125,7 @@ const OrderTable = ({ rows, onEdit }) => {
         columnSelected={selectedColumns}
         setColumnSelected={setSelectedColumns}
       />
+
       <DataGrid
         rows={visibleRows}
         columns={[
@@ -143,7 +141,7 @@ const OrderTable = ({ rows, onEdit }) => {
                 onClick={() => handleEditClick(params)}
               >
                 <EditIcon />
-              </div>
+              </div> //edit for each row
             ),
           },
         ]}
@@ -153,6 +151,7 @@ const OrderTable = ({ rows, onEdit }) => {
         hideFooter
         editable
       />
+
       <CommonModal
         open={isModalOpen}
         onClose={handleCloseModal}
